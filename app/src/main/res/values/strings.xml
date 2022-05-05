@@ -14,5 +14,8 @@
     <string name="nav_close">Close</string>
 
 
+    <string name="title_loginpage">Se Connecter</string>
+    <string name="username">Email</string>
+    <string name="password">Mot de passe</string>
 
 </resources>
