@@ -10,7 +10,6 @@
 
     <TextView
         android:id="@+id/title_login"
-        android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
@@ -18,24 +17,55 @@
         android:gravity="center"
         android:text="@string/title_loginpage"
         android:textColor="@color/white"
-        android:textSize="35sp">
-        
+        android:textSize="35sp"
+        android:textStyle="bold">
+
     </TextView>
-    
+
     <EditText
-        android:layout_below="@+id/title_login"
         android:id="@+id/username"
         style="@style/Editext_loginpage"
-        android:text="@string/username">
-
-    </EditText>
+        android:layout_below="@+id/title_login"
+        android:drawableLeft="@drawable/ic_baseline_alternate_email_24"
+        android:text="@string/username" />
 
     <EditText
-        android:layout_below="@+id/username"
+        android:id="@+id/password"
         style="@style/Editext_loginpage"
-        android:text="@string/password">
+        android:layout_below="@+id/username"
+        android:drawableLeft="@drawable/ic_baseline_info_24"
+        android:text="@string/password" />
 
-    </EditText>
+    <Button
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/password"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="#85d91a"
+        android:text="@string/loginbtn" />
+
+
+    <TextView
+        android:id="@+id/forgotpassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/login_button"
+        android:layout_centerHorizontal="true"
+        android:text="@string/forgotpassword"
+        android:textColor="@color/white"
+        android:textStyle="italic"
+        android:layout_marginTop="20dp"/>
+
+    <ImageView
+        android:id="@+id/esmelogo"
+        android:layout_width="124dp"
+        android:layout_height="124dp"
+        android:src="@drawable/ESME_LOGO"
+        android:layout_below="@id/forgotpassword"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="72dp"/>
 
 
 </RelativeLayout>
