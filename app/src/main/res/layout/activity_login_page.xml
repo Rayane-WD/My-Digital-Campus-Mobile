@@ -12,9 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text=
+        android:text=""
         android:textSize="35sp"
-        android:textColor="@color/white"
+        android:textColor="@color/white" />
 
 
 

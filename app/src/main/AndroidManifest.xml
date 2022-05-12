@@ -12,8 +12,8 @@
         <activity
             android:name=".LoginPageActivity"
             android:exported="false"
-            android:label="@string/title_activity_login_page"
-            android:theme="@style/Theme.MyDigitalCampusMobile.NoActionBar" />
+            android:label="@string/title_activity_login_page">
+        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true">
