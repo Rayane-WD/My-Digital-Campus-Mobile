@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+<!--    Login page style    -->
     <style name="Editext_loginpage" parent="TextAppearance.AppCompat">
         <item name="android:textSize">18sp</item>
         <item name="android:layout_width">match_parent</item>
