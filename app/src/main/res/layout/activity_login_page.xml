@@ -62,7 +62,7 @@
         android:id="@+id/esmelogo"
         android:layout_width="124dp"
         android:layout_height="124dp"
-        android:src="@drawable/ESME_LOGO"
+        android:src="@drawable/esme_logo"
         android:layout_below="@id/forgotpassword"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="72dp"/>
