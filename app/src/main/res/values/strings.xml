@@ -13,11 +13,13 @@
     <string name="nav_open">Open</string>
     <string name="nav_close">Close</string>
 
-<!--LOGIN PAGE STRINGS-->
+    <!--LOGIN PAGE STRINGS-->
     <string name="title_loginpage">S\'identifier</string>
     <string name="username">Email</string>
     <string name="password">Mot de passe</string>
     <string name="loginbtn">Connexion</string>
     <string name="forgotpassword">Mot de passe oublié ?</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
