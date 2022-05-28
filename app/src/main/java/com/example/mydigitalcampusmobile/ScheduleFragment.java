@@ -1,6 +1,7 @@
 package com.example.mydigitalcampusmobile;
 
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;
@@ -15,13 +16,10 @@ import android.widget.TextView;
 
 public class ScheduleFragment extends Fragment {
 
-    DayCourses courses = null;
+    private DayCourses courses;
     public ScheduleFragment(DayCourses courses) {
 
         this.courses = courses;
-    }
-    public ScheduleFragment(String test) {
-
     }
 
 
@@ -36,16 +34,23 @@ public class ScheduleFragment extends Fragment {
 
         //On change le texte de notre page a chaque création d'une nouvelle page//Bouclons  sur les emplacements de cours
         int [] courses_id_in_xml_list = {R.id.course1, R.id.course2, R.id.course3, R.id.course4, R.id.course5}; //Recupère les id
+
         int n=0; //variable de suivit de la liste des cours id
+
         for (int c_id : courses_id_in_xml_list){
             n++;
-            TextView c = root.findViewById(c_id);
-            c.setText(this.courses.getString(n)); //Maj du fragment en fonction du cours
+
+            TextView tv = root.findViewById(c_id);
+            tv.setText(this.courses.getString(n)); //Maj du fragment en fonction du cours
 
             //Maj de la couleur du cours en fonction de son type
-            Course course_unit = this.courses.getCourses().get(n);
-            if (course_unit.getType_course().equals("TD")){c.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.td_course));}
-            else if (course_unit.getType_course().equals("TP")){c.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.tp_course));}
+            Course course_unit = this.courses.getCourse(n);
+            if (course_unit == null){
+                tv.getBackground().setColorFilter(ContextCompat.getColor(getContext(), R.color.transparent), PorterDuff.Mode.MULTIPLY);
+            }
+            else if (course_unit.getType_course().equals("TD")){tv.getBackground().setColorFilter(ContextCompat.getColor(getContext(), R.color.td_course), PorterDuff.Mode.MULTIPLY);}
+            else if (course_unit.getType_course().equals("TP")){tv.getBackground().setColorFilter(ContextCompat.getColor(getContext(), R.color.tp_course), PorterDuff.Mode.MULTIPLY);;}
+            else if (course_unit.getType_course().equals("TG")){tv.getBackground().setColorFilter(ContextCompat.getColor(getContext(), R.color.tg_course), PorterDuff.Mode.MULTIPLY);;}
 
         }
 

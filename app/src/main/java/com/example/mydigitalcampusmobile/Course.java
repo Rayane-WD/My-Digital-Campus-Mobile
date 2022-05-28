@@ -6,7 +6,7 @@ import java.util.List;
 public class Course {
 
 
-    String type_course;
+    private String type_course;
     String course_name;
     String teacher_name;
     String room_id;

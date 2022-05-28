@@ -6,8 +6,8 @@ import java.util.ArrayList;
 public class DayCourses {
 
 
-    ArrayList<Course> list_of_courses = new ArrayList<Course>();
-    String day;
+    private ArrayList<Course> list_of_courses = new ArrayList<Course>();
+    private String day;
 
     //Constructors
     public DayCourses() {
@@ -50,12 +50,15 @@ public class DayCourses {
 
         return "Cours : " + c.getType_course() + " - " + c.getCourse_name()+"\n"
                 +"Salle : " + c.getRoom_id()+"\n"
-                +"Enseignant : " + c.getTeacher_name()+"\n";
+                +"Enseignant : " + c.getTeacher_name();
     }
 
     //Getters
     public ArrayList<Course> getCourses(){
         return list_of_courses;
+    }
+    public Course getCourse(int n){
+        return list_of_courses.get(n);
     }
     public String getDay() {return day;}
 }

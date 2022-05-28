@@ -38,7 +38,8 @@ public class MainActivity extends AppCompatActivity {
         //On crée des journées de cours
         DayCourses monday_courses = new DayCourses("Lundi");
         monday_courses.addCourse(new Course("TD","Anglais", "MUNN", "B06A"), 1);
-        monday_courses.addCourse(new Course("TP","Programation web", "BENABOU", "B14"), 2);
+        monday_courses.addCourse(new Course("TP","Programation weeeeeeeeeeb", "BENABOU", "B14"), 2);
+        monday_courses.addCourse(new Course("TG","maaaaaaaaaaaaaaaaaaaaaaaaaaaaaaths", "ugkjhdcjjjjjjjfxxxxxxxxxxxxxxx", "B14"), 4);
         this.all_courses.add(monday_courses);
 
         DayCourses thuesday_courses = new DayCourses("Mardi");

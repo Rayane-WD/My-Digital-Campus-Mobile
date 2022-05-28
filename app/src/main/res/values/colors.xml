@@ -12,6 +12,8 @@
     <color name="blue">#0000FF</color>
 
 
+    <color name="transparent">#00FFFFFF</color>
     <color name="td_course">#df9eff</color>
     <color name="tp_course">#84ea99</color>
+    <color name="tg_course">#ffc166</color>
 </resources>

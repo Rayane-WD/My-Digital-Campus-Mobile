@@ -53,19 +53,19 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/login_button"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
         android:text="@string/forgotpassword"
         android:textColor="@color/white"
-        android:textStyle="italic"
-        android:layout_marginTop="20dp"/>
+        android:textStyle="italic" />
 
     <ImageView
         android:id="@+id/esmelogo"
         android:layout_width="124dp"
         android:layout_height="124dp"
-        android:src="@drawable/esme_logo"
         android:layout_below="@id/forgotpassword"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="72dp"/>
+        android:layout_marginTop="72dp"
+        android:src="@drawable/esme_logo" />
 
 
 </RelativeLayout>
