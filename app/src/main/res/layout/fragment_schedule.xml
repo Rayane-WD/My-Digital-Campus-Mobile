@@ -1,14 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ScheduleFragment">
+    tools:context=".ScheduleFragment"
+    android:id="@+id/parentRelative"
+    android:orientation="vertical">
 
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/schedule_listview_id"/>
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_margin="20dp">
 
-</FrameLayout>
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:columnCount="2"
+                android:padding="12dp"
+                android:rowCount="5">
+
+                <TextView
+                    style="@style/hour_string"
+                    android:text="8:30" />
+
+                <TextView
+                    android:id="@+id/course1"
+                    style="@style/course_string"
+                    android:text="@string/course_sample" />
+
+
+                <TextView
+                    style="@style/hour_string"
+                    android:text="10:30" />
+
+                <TextView
+                    android:id="@+id/course2"
+                    style="@style/course_string"
+                    android:text="@string/course_sample" />
+
+
+                <TextView
+                    style="@style/hour_string"
+                    android:text="12:30" />
+
+                <TextView
+                    android:id="@+id/course3"
+                    style="@style/course_string"
+                    android:text="@string/course_sample" />
+
+
+                <TextView
+                    style="@style/hour_string"
+                    android:text="14:00" />
+
+                <TextView
+                    android:id="@+id/course4"
+                    style="@style/course_string"
+                    android:text="@string/course_sample" />
+
+
+                <TextView
+                    style="@style/hour_string"
+                    android:text="16:00" />
+
+                <TextView
+                    android:id="@+id/course5"
+                    style="@style/course_string"
+                    android:text="@string/course_sample" />
+
+
+            </GridLayout>
+        </ScrollView>
+
+
+
+</LinearLayout>

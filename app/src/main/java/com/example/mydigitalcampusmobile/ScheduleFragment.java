@@ -1,49 +1,54 @@
 package com.example.mydigitalcampusmobile;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-
-import java.util.ArrayList;
+import android.widget.TextView;
 
 
 public class ScheduleFragment extends Fragment {
 
+    DayCourses courses = null;
+    public ScheduleFragment(DayCourses courses) {
 
-    public ScheduleFragment() {
-        // Required empty public constructor
+        this.courses = courses;
+    }
+    public ScheduleFragment(String test) {
+
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_schedule, container, false);
+
+        //On recupere le layout fragment de notre viewpager2
+        View root = inflater.inflate(R.layout.fragment_schedule, container, false);
 
 
-        //On crée la journée de cours
-        DayCourses monday_courses = new DayCourses("Lundi");
-        monday_courses.addCourse(new Course("8h30", "10h30", "Anglais", "MUNN", "B06A"), 1);
-        monday_courses.addCourse(new Course("10h30", "12h30", "Programation web", "BENABOU", "B14"), 2);
 
-        //On récupère la view
-        ListView listView = view.findViewById(R.id.schedule_listview_id);
+        //On change le texte de notre page a chaque création d'une nouvelle page//Bouclons  sur les emplacements de cours
+        int [] courses_id_in_xml_list = {R.id.course1, R.id.course2, R.id.course3, R.id.course4, R.id.course5}; //Recupère les id
+        int n=0; //variable de suivit de la liste des cours id
+        for (int c_id : courses_id_in_xml_list){
+            n++;
+            TextView c = root.findViewById(c_id);
+            c.setText(this.courses.getString(n)); //Maj du fragment en fonction du cours
 
-        //
-//        ArrayAdapter<String> listViewAdapter = new ArrayAdapter<String>(
-//                getActivity(),
-//                android.R.layout.simple_list_item_1,
-//
-//        );
+            //Maj de la couleur du cours en fonction de son type
+            Course course_unit = this.courses.getCourses().get(n);
+            if (course_unit.getType_course().equals("TD")){c.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.td_course));}
+            else if (course_unit.getType_course().equals("TP")){c.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.tp_course));}
 
+        }
 
-        return view;
+        return root;
     }
 }

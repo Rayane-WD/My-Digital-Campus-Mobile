@@ -37,8 +37,25 @@ public class DayCourses {
         list_of_courses.add(num, new_course);
     }
 
+    public String getString(int num){
+        /** Permet d'avoir la string de présentation d'un cours
+         * num -> emplacement du cours dans la journée
+         */
+        Course c = list_of_courses.get(num);
+
+        //Si il n'y a pas de cours, des sauts de lignes sont affichés
+        if (c == null){
+            return "\n\n\n";
+        }
+
+        return "Cours : " + c.getType_course() + " - " + c.getCourse_name()+"\n"
+                +"Salle : " + c.getRoom_id()+"\n"
+                +"Enseignant : " + c.getTeacher_name()+"\n";
+    }
+
     //Getters
     public ArrayList<Course> getCourses(){
         return list_of_courses;
     }
+    public String getDay() {return day;}
 }
