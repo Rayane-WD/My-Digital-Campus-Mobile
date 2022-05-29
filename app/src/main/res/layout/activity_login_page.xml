@@ -34,6 +34,7 @@
         style="@style/Editext_loginpage"
         android:layout_below="@+id/username"
         android:drawableLeft="@drawable/ic_baseline_info_24"
+        android:inputType="textPassword"
         android:hint="@string/password" />
 
     <Button
