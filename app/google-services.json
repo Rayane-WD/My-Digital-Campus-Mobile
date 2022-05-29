@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "435406236421",
+    "project_id": "mydigital-1c394",
+    "storage_bucket": "mydigital-1c394.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:435406236421:android:cc968057b3c7c47f11656c",
+        "android_client_info": {
+          "package_name": "com.example.mydigitalcampusmobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "435406236421-iupve880v706pkiemcbf79t3k8se5mma.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDM8YJo_6RDE9UY46i8DzM8Gt2y2Qi4jyU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "435406236421-iupve880v706pkiemcbf79t3k8se5mma.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:435406236421:android:4fec5bccc743ffcf11656c",
+        "android_client_info": {
+          "package_name": "com.test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "435406236421-iupve880v706pkiemcbf79t3k8se5mma.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDM8YJo_6RDE9UY46i8DzM8Gt2y2Qi4jyU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "435406236421-iupve880v706pkiemcbf79t3k8se5mma.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
