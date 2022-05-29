@@ -27,14 +27,14 @@
         style="@style/Editext_loginpage"
         android:layout_below="@+id/title_login"
         android:drawableLeft="@drawable/ic_baseline_alternate_email_24"
-        android:text="@string/username" />
+        android:hint="@string/username" />
 
     <EditText
         android:id="@+id/password"
         style="@style/Editext_loginpage"
         android:layout_below="@+id/username"
         android:drawableLeft="@drawable/ic_baseline_info_24"
-        android:text="@string/password" />
+        android:hint="@string/password" />
 
     <Button
         android:id="@+id/login_button"

@@ -26,6 +26,9 @@ public class LoginPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                String user_mail = (String) username_email.getText();
+                String user_pass = (String) username_password.getText();
+
             }
         });
 
