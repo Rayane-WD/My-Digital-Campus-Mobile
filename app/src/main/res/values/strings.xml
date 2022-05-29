@@ -14,8 +14,8 @@
     <string name="nav_close">Close</string>
     <string name="emploi_du_temps">Emploi du temps</string>
     <string name="notes">Notes</string>
-
-
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
