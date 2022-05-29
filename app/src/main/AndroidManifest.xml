@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyDigitalCampusMobile">
         <activity
+            android:name=".NoteActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginPageActivity"
             android:exported="false"
             android:label="@string/title_activity_login_page"
