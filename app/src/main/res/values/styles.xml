@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-<!--    Login page style    -->
+    <!--    Login page style    -->
     <style name="Editext_loginpage" parent="TextAppearance.AppCompat">
         <item name="android:textSize">18sp</item>
         <item name="android:layout_width">match_parent</item>
@@ -37,6 +37,18 @@
         <item name="android:layout_margin">10dp</item>
         <item name="android:padding">10dp</item>
     </style>
-    
-    
+
+
+    <!--    card item style    -->
+    <style name="note_card_item" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:ems">2</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:gravity">right</item>
+    </style>
+
 </resources>

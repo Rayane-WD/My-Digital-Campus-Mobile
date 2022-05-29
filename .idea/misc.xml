@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Royone/Esme/Inge 1D/Semestre 2/Innovation/My_Digital_Campus_Mobile/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2245" />
+        <entry key="..\:/Royone/Esme/Inge 1D/Semestre 2/Innovation/My_Digital_Campus_Mobile/app/src/main/res/drawable/lineborder.xml" value="0.2245" />
         <entry key="..\:/Royone/Esme/Inge 1D/Semestre 2/Innovation/My_Digital_Campus_Mobile/app/src/main/res/drawable/lock-48px.xml" value="0.2265" />
         <entry key="..\:/Royone/Esme/Inge 1D/Semestre 2/Innovation/My_Digital_Campus_Mobile/app/src/main/res/drawable/round_corner_view_button.xml" value="0.2245" />
         <entry key="..\:/Royone/Esme/Inge 1D/Semestre 2/Innovation/My_Digital_Campus_Mobile/app/src/main/res/drawable/round_corner_view_connection_button.xml" value="0.2245" />
@@ -12,6 +13,7 @@
         <entry key="..\:/Royone/Esme/Inge 1D/Semestre 2/Innovation/My_Digital_Campus_Mobile/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Royone/Esme/Inge 1D/Semestre 2/Innovation/My_Digital_Campus_Mobile/app/src/main/res/layout/activity_note.xml" value="0.25416666666666665" />
         <entry key="..\:/Royone/Esme/Inge 1D/Semestre 2/Innovation/My_Digital_Campus_Mobile/app/src/main/res/layout/activity_schedule.xml" value="0.25416666666666665" />
+        <entry key="..\:/Royone/Esme/Inge 1D/Semestre 2/Innovation/My_Digital_Campus_Mobile/app/src/main/res/layout/card_item.xml" value="0.253125" />
         <entry key="..\:/Royone/Esme/Inge 1D/Semestre 2/Innovation/My_Digital_Campus_Mobile/app/src/main/res/layout/fragment_item_list.xml" value="0.24010416666666667" />
         <entry key="..\:/Royone/Esme/Inge 1D/Semestre 2/Innovation/My_Digital_Campus_Mobile/app/src/main/res/layout/fragment_schedule.xml" value="0.24010416666666667" />
         <entry key="..\:/Royone/Esme/Inge 1D/Semestre 2/Innovation/My_Digital_Campus_Mobile/app/src/main/res/layout/fragment_slide.xml" value="0.25416666666666665" />
