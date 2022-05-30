@@ -14,6 +14,8 @@
     <string name="nav_open">Open</string>
     <string name="nav_close">Close</string>
 
+
+
     <!--LOGIN PAGE STRINGS-->
     <string name="title_loginpage">S\'identifier</string>
     <string name="username">Email</string>
@@ -21,11 +23,14 @@
     <string name="loginbtn">Connexion</string>
     <string name="forgotpassword">Mot de passe oublié ?</string>
 
-
     <!--FRAGMENT SCHEDULE STRINGS-->
     <string name="course_sample">Cours : type1 - nom2\nSalle : salle3\nEnseignant : enseignant4</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- HEADER DRAWER MENU -->
+    <string name="text_intro_sample">Nom1 \nPrenom2 \n\nClasse3</string>
+
+    <!-- MAIN DRAWER MENU -->
+    <string name="nav_schedule">Emploi du temps</string>
+    <string name="nav_note">Notes</string>
 
 </resources>

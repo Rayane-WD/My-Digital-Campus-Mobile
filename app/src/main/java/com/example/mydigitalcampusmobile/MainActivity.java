@@ -3,18 +3,25 @@ package com.example.mydigitalcampusmobile;
 import static com.google.android.gms.tasks.Tasks.await;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.widget.TableLayout;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.firestore.DocumentReference;
@@ -28,6 +35,12 @@ import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
+
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    Toolbar toolbar;
+    ActionBarDrawerToggle  actionBarDrawerToggle;
+
     private String id_eleve;
     private String classe_eleve = "";
 
@@ -38,15 +51,49 @@ public class MainActivity extends AppCompatActivity {
     DayCourses friday_courses;
     private ArrayList<DayCourses> all_courses = new ArrayList<DayCourses>();
 
-
     private FirebaseFirestore db;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //On souhaite créer des journées de cours
+        //Implémentation du drawer layout et de sa toggle bar
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.navigationView);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
+
+        //On ajoute la toggle bar au drawer layout
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+
+        //Listener de notre drawer
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                switch(item.getItemId()){
+                    //Clic sur Emploi du temps
+                    case R.id.nav_schedule:
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        break;
+
+                    //Clic sur Notes
+                    case R.id.nav_note:
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        break;
+
+                }
+
+                return true;
+            }
+        });
+
+
+
+        /**On souhaite créer des journées de cours - Etapes :   **/
 
         //0 Initialisation des jours de la semaine
         monday_courses = new DayCourses("Lundi");
@@ -60,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         this.all_courses.add(thursday_courses);
         this.all_courses.add(friday_courses);
 
-        //1 On retrouve l'élève
+        //1 On retrouve l'élève (enregistré depuis la login activity)
         SharedPreferences sp = getSharedPreferences("userPreferences", Context.MODE_PRIVATE);
         id_eleve = sp.getString("actual_student", "Pb patron");
 
@@ -94,6 +141,15 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(actionBarDrawerToggle.onOptionsItemSelected(item)){
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     private void querySetCoursesOfTheStudent() {
         /** Fait une requete sur les cours de la classe de l'élève
