@@ -1,7 +1,9 @@
 package com.example.mydigitalcampusmobile;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,12 +28,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.concurrent.TimeUnit;
+
 
 public class LoginPageActivity extends AppCompatActivity {
 
-    //Credentials de connexion a firestore
-    String e="rayane.waidi@esme.fr";
-    String p="123abc";
+
 
     EditText username_email;
     EditText username_password;
@@ -40,19 +42,25 @@ public class LoginPageActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
 
     private FirebaseAuth mAuth;
-    private FirebaseUser user = null;
+    private FirebaseUser user;
     private FirebaseFirestore db;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i("aaaaaaaaaaaz","rrrrrrrrrrr");
         setContentView(R.layout.activity_login_page);
 
         username_password = findViewById(R.id.password);
         username_email = findViewById(R.id.username);
         login_btn = findViewById(R.id.login_button);
+
+        //On stock les credentials de co a firestore
+        SharedPreferences sharedpreferences = getSharedPreferences("userPreferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString("e", "rayane.waidi@esme.fr");
+        editor.putString("p", "123abc");
+        editor.apply();
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -61,14 +69,13 @@ public class LoginPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (user==null){return;}
 
                 //Boite de dialogue d'attente
-                progressDialog = new ProgressDialog(LoginPageActivity.this);
-                progressDialog.setMessage("Connexion en cours, veuillez patienter...");
-                progressDialog.setTitle("Connexion");
-                progressDialog.setCanceledOnTouchOutside(false);
-                progressDialog.show();
+//                progressDialog = new ProgressDialog(LoginPageActivity.this);
+//                progressDialog.setMessage("Connexion en cours, veuillez patienter...");
+//                progressDialog.setTitle("Connexion");
+//                progressDialog.setCanceledOnTouchOutside(false);
+//                progressDialog.show();
 
                 //On récupère la database
                 db = FirebaseFirestore.getInstance();
@@ -79,7 +86,7 @@ public class LoginPageActivity extends AppCompatActivity {
 
                 //On essaye de se connecter
                 login(user_mail, user_pass);
-                progressDialog.dismiss();
+//                progressDialog.dismiss();
 
             }
         });
@@ -98,6 +105,7 @@ public class LoginPageActivity extends AppCompatActivity {
                 }
                 else{
                     Toast.makeText(LoginPageActivity.this, "Problème lors de la connexion à FireBase: "+task.getException(), Toast.LENGTH_SHORT).show();
+                    Log.w("Erreur firebase", "Pb de co (LoginPageActivity) : "+task.getException());
                 }
             }
         });
@@ -123,7 +131,7 @@ public class LoginPageActivity extends AppCompatActivity {
                     if (document.exists()) {
                         if (document.getString("mdp").equals(user_pass)){
                             // B I N G O
-                            sendUserToNextActivty();
+                            sendUserToNextActivity(user_mail);
                         }
                         //Message d'erreur (mauvais mdp)
                         else{
@@ -134,17 +142,24 @@ public class LoginPageActivity extends AppCompatActivity {
                     else {
                         Toast.makeText(LoginPageActivity.this, "Cet utilisateur n'existe pas", Toast.LENGTH_LONG).show();
                     }
-
                 }
                 else {
-                    Toast.makeText(LoginPageActivity.this, "Erreur :"+task.getException(), Toast.LENGTH_LONG).show();
+                    Log.w("Erreur firebase", "Pb de query (LoginPageActivity) : "+task.getException());
                 }
             }
         });
 
     }
 
-    private void sendUserToNextActivty(){
+    private void sendUserToNextActivity(String eleve){
+
+        //On enregistre l'eleve dans les preferences
+        SharedPreferences sharedpreferences = getSharedPreferences("userPreferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString("actual_student", eleve);
+        editor.apply();
+
+        //Création de l'intent
         Intent intent = new Intent(LoginPageActivity.this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
@@ -153,6 +168,17 @@ public class LoginPageActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
+        //On recupere les credentials de co à FS
+        SharedPreferences sp = getSharedPreferences("userPreferences", Context.MODE_PRIVATE);
+        String e = sp.getString("e","on a un pb patron");
+        String p = sp.getString("p","on a un pb patron");
         LogToFireBase(e,p);
+
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){
+            currentUser.reload();
+        }
     }
 }
