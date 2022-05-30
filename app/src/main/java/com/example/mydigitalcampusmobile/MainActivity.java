@@ -93,26 +93,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-        //5 On lie notre viewpager2 à son adapter
-        ViewPager2 viewPager2 = findViewById(R.id.schedule_viewpager);
-        viewPager2.setAdapter(
-                new ScheduleAdapter(this, this.all_courses)
-        );
-
-        //6 Implémentation d'un table layout (le truc où y a écrit les jours de la semaine)
-        TabLayout tabLayout = findViewById(R.id.tablayout_id); // On récupère notre table layout depuis la fragment schedule
-        new TabLayoutMediator(
-                tabLayout,
-                viewPager2,
-                new TabLayoutMediator.TabConfigurationStrategy() {
-                    @Override
-                    public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                        tab.setText(all_courses.get(position).getDay());
-                    }
-                }
-        ).attach();
-
     }
 
     private void querySetCoursesOfTheStudent() {
@@ -154,6 +134,33 @@ public class MainActivity extends AppCompatActivity {
                 dc.addCourse(new Course(type, name, teacher, room), Integer.parseInt(emplacement));
             }
         }
+        //5 Mise en place du fragment viewpager2
+        setFragment();
 
+    }
+
+    private void setFragment(){
+        /** Met en place le view pager avec les cours et le table layout
+         *
+         */
+
+        //On lie notre viewpager2 à son adapter
+        ViewPager2 viewPager2 = findViewById(R.id.schedule_viewpager);
+        viewPager2.setAdapter(
+                new ScheduleAdapter(this, this.all_courses)
+        );
+
+        //Implémentation d'un table layout (le truc où y a écrit les jours de la semaine)
+        TabLayout tabLayout = findViewById(R.id.tablayout_id); // On récupère notre table layout depuis la fragment schedule
+        new TabLayoutMediator(
+                tabLayout,
+                viewPager2,
+                new TabLayoutMediator.TabConfigurationStrategy() {
+                    @Override
+                    public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                        tab.setText(all_courses.get(position).getDay());
+                    }
+                }
+        ).attach();
     }
 }

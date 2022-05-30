@@ -20,7 +20,8 @@
         android:id="@+id/tablayout_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/schedule_viewpager">
+        app:layout_constraintBottom_toBottomOf="@+id/schedule_viewpager"
+        app:tabMode="scrollable">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"

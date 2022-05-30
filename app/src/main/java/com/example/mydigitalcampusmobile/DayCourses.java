@@ -57,8 +57,6 @@ public class DayCourses {
     public ArrayList<Course> getCourses(){
         return list_of_courses;
     }
-    public Course getCourse(int n){
-        return list_of_courses.get(n);
-    }
+    public Course getCourse(int n){return list_of_courses.get(n);}
     public String getDay() {return day;}
 }
