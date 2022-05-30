@@ -39,6 +39,7 @@ public class ScheduleFragment extends Fragment {
 
         for (int c_id : courses_id_in_xml_list){
             n++;
+            if (n==6){break;}
 
             TextView tv = root.findViewById(c_id);
             tv.setText(this.courses.getString(n)); //Maj du fragment en fonction du cours

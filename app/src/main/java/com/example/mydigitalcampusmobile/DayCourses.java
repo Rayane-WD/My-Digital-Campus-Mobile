@@ -23,7 +23,7 @@ public class DayCourses {
         /** Permet de ne pas laisser de case vide dans la liste des cours
 
          */
-        for (int i=0; i<4; i++) {
+        for (int i=0; i<=5; i++) {
             list_of_courses.add(null);
         }
 

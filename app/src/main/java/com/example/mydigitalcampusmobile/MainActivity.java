@@ -100,8 +100,7 @@ public class MainActivity extends AppCompatActivity {
                 new ScheduleAdapter(this, this.all_courses)
         );
 
-        Log.d("ddk", "document.getId() + document.getData()");
-        //6 Implémentation d'un table layout
+        //6 Implémentation d'un table layout (le truc où y a écrit les jours de la semaine)
         TabLayout tabLayout = findViewById(R.id.tablayout_id); // On récupère notre table layout depuis la fragment schedule
         new TabLayoutMediator(
                 tabLayout,
