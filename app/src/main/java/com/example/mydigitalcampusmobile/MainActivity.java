@@ -1,12 +1,9 @@
 package com.example.mydigitalcampusmobile;
 
+import static com.google.android.gms.tasks.Tasks.await;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.Lifecycle;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Context;
@@ -27,11 +24,18 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
     private String id_eleve;
-    private String classe_eleve;
+    private String classe_eleve = "";
+
+    DayCourses monday_courses;
+    DayCourses tuesday_courses;
+    DayCourses wednesday_courses;
+    DayCourses thursday_courses;
+    DayCourses friday_courses;
     private ArrayList<DayCourses> all_courses = new ArrayList<DayCourses>();
 
 
@@ -44,6 +48,18 @@ public class MainActivity extends AppCompatActivity {
 
         //On souhaite créer des journées de cours
 
+        //0 Initialisation des jours de la semaine
+        monday_courses = new DayCourses("Lundi");
+        tuesday_courses = new DayCourses("Mardi");
+        wednesday_courses = new DayCourses("Mercredi");
+        thursday_courses = new DayCourses("Jeudi");
+        friday_courses = new DayCourses("Vendredi");
+        this.all_courses.add(monday_courses);
+        this.all_courses.add(tuesday_courses);
+        this.all_courses.add(wednesday_courses);
+        this.all_courses.add(thursday_courses);
+        this.all_courses.add(friday_courses);
+
         //1 On retrouve l'élève
         SharedPreferences sp = getSharedPreferences("userPreferences", Context.MODE_PRIVATE);
         id_eleve = sp.getString("actual_student", "Pb patron");
@@ -54,64 +70,38 @@ public class MainActivity extends AppCompatActivity {
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()){
+
+                if (task.isSuccessful()) {
 
                     //On récupère le résultat de la query
                     DocumentSnapshot document = task.getResult();
 
                     if (document.exists()) {
                         classe_eleve = document.getString("classe");
+
+                        //3 On retrouve ses cours
+                        querySetCoursesOfTheStudent();
                     }
                     //Message d'erreur (mauvais document)
                     else {
                         Log.w("Erreur firebase", "Ce document n'existe pas (MainActivity) : Lors de la recherche de la classe de l'eleve");
                     }
-                }
-                else {
-                    Log.w("Erreur firebase", "Pb de query lors de la recherche de la classe de l'élève (MainActivity) : "+task.getException());
+                } else {
+                    Log.w("Erreur firebase", "Pb de query lors de la recherche de la classe de l'élève (MainActivity) : " + task.getException());
                 }
             }
         });
 
-        //3 On retrouve ses cours
-        db.document(classe_eleve).collection("matieres").get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d("ddk", document.getId() + " => " + document.getData());
-                            }
-                        } else {
-                            Log.w("Erreur firebase", "Pb de query lors de la recherche des matières de l'élève (MainActivity) : "+task.getException());
-                        }
-                    }
-                });
 
 
-
-
-
-        //On crée des journées de cours
-        DayCourses monday_courses = new DayCourses("Lundi");
-        monday_courses.addCourse(new Course("TD", "Anglais", "MUNN", "B06A"), 1);
-        monday_courses.addCourse(new Course("TP", "Programation weeeeeeeeeeb", "BENABOU", "B14"), 2);
-        monday_courses.addCourse(new Course("TG", "maaaaaaaaaaaaaaaaaaaaaaaaaaaaaaths", "ugkjhdcjjjjjjjfxxxxxxxxxxxxxxx", "B14"), 4);
-        this.all_courses.add(monday_courses);
-
-        DayCourses thuesday_courses = new DayCourses("Mardi");
-        thuesday_courses.addCourse(new Course("TD", "Anglais", "MUNN", "B06A"), 1);
-        thuesday_courses.addCourse(new Course("TP", "Programation web", "BENABOU", "B14"), 4);
-        this.all_courses.add(thuesday_courses);
-
-
-        //On lie notre viewpager2 à son adapter
+        //5 On lie notre viewpager2 à son adapter
         ViewPager2 viewPager2 = findViewById(R.id.schedule_viewpager);
         viewPager2.setAdapter(
                 new ScheduleAdapter(this, this.all_courses)
         );
 
-        //Implémentation d'un table layout
+        Log.d("ddk", "document.getId() + document.getData()");
+        //6 Implémentation d'un table layout
         TabLayout tabLayout = findViewById(R.id.tablayout_id); // On récupère notre table layout depuis la fragment schedule
         new TabLayoutMediator(
                 tabLayout,
@@ -123,6 +113,48 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         ).attach();
+
+    }
+
+    private void querySetCoursesOfTheStudent() {
+        /** Fait une requete sur les cours de la classe de l'élève
+         *
+         */
+
+        db.collection("classes").document(classe_eleve).collection("matieres")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull  Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    //On boucle sur chaque matière
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        //4 On mets les cours dans leur jours et heures respectives
+                        setCourses(document.getString("jour"),
+                                document.getString("type"),
+                                document.getId(),
+                                document.getString("enseignant"),
+                                document.getString("salle"),
+                                document.getString("emplacement"));
+
+                    }
+                } else {
+                    Log.w("Erreur firebase", "Pb de query lors de la recherche des matières de l'élève (MainActivity) : "+task.getException());
+                }
+            }
+        });
+    }
+
+    private void setCourses(String day, String type, String name, String teacher, String room, String emplacement) {
+        /** Assigne chaque cours à son jour de la semaine et à son heure
+         *
+         */
+        //On boucle sur les jours déjà crés
+        for (DayCourses dc : all_courses){
+            if (dc.getDay().equalsIgnoreCase(day)){ // "equalsIgnoreCase()" mais quelle beauté de fonction serieusement wow
+                dc.addCourse(new Course(type, name, teacher, room), Integer.parseInt(emplacement));
+            }
+        }
 
     }
 }
