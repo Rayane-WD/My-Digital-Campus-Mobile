@@ -71,11 +71,11 @@ public class LoginPageActivity extends AppCompatActivity {
 
 
                 //Boite de dialogue d'attente
-//                progressDialog = new ProgressDialog(LoginPageActivity.this);
-//                progressDialog.setMessage("Connexion en cours, veuillez patienter...");
-//                progressDialog.setTitle("Connexion");
-//                progressDialog.setCanceledOnTouchOutside(false);
-//                progressDialog.show();
+                progressDialog = new ProgressDialog(LoginPageActivity.this);
+                progressDialog.setMessage("Connexion en cours, veuillez patienter...");
+                progressDialog.setTitle("Connexion");
+                progressDialog.setCanceledOnTouchOutside(false);
+                progressDialog.show();
 
                 //On récupère la database
                 db = FirebaseFirestore.getInstance();
@@ -86,7 +86,6 @@ public class LoginPageActivity extends AppCompatActivity {
 
                 //On essaye de se connecter
                 login(user_mail, user_pass);
-//                progressDialog.dismiss();
 
             }
         });
@@ -131,6 +130,12 @@ public class LoginPageActivity extends AppCompatActivity {
                     if (document.exists()) {
                         if (document.getString("mdp").equals(user_pass)){
                             // B I N G O
+                            SharedPreferences sharedpreferences = getSharedPreferences("userPreferences", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedpreferences.edit();
+                            editor.putString("id_student", user_mail);
+                            editor.putString("class_student", document.getString("classe"));
+                            editor.putString("name_student", document.getString("nom"));
+                            editor.putString("famname_student", document.getString("prenom"));
                             sendUserToNextActivity(user_mail);
                         }
                         //Message d'erreur (mauvais mdp)
@@ -153,17 +158,14 @@ public class LoginPageActivity extends AppCompatActivity {
 
     private void sendUserToNextActivity(String eleve){
 
-        //On enregistre l'eleve dans les preferences
-        SharedPreferences sharedpreferences = getSharedPreferences("userPreferences", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putString("actual_student", eleve);
-        editor.apply();
+        progressDialog.dismiss();
 
         //Création de l'intent
         Intent intent = new Intent(LoginPageActivity.this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
+
 
     @Override
     protected void onStart() {

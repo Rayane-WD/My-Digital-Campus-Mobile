@@ -10,12 +10,16 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TableLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -43,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
 
     private String id_eleve;
     private String classe_eleve = "";
+    private String name_eleve = "";
+    private String famname_eleve = "";
 
     DayCourses monday_courses;
     DayCourses tuesday_courses;
@@ -59,6 +65,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //On recupere les info de l'élève (enregistrés depuis la login activity)
+        SharedPreferences sp = getSharedPreferences("userPreferences", Context.MODE_PRIVATE);
+        id_eleve = sp.getString("id_student", "Pb patron");
+        classe_eleve = sp.getString("class_student", "Pb patron");
+        name_eleve = sp.getString("name_student", "y a 1 pb patron");
+        famname_eleve = sp.getString("famname_student", "Pb patron");
+
 
         //Implémentation du drawer layout et de sa toggle bar
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -77,11 +91,13 @@ public class MainActivity extends AppCompatActivity {
                 switch(item.getItemId()){
                     //Clic sur Emploi du temps
                     case R.id.nav_schedule:
+                        sendUserToMainActivity();
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;
 
                     //Clic sur Notes
                     case R.id.nav_note:
+                        sendUserToNoteActivity();
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;
 
@@ -90,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
 
 
         /**On souhaite créer des journées de cours - Etapes :   **/
@@ -107,37 +122,11 @@ public class MainActivity extends AppCompatActivity {
         this.all_courses.add(thursday_courses);
         this.all_courses.add(friday_courses);
 
-        //1 On retrouve l'élève (enregistré depuis la login activity)
-        SharedPreferences sp = getSharedPreferences("userPreferences", Context.MODE_PRIVATE);
-        id_eleve = sp.getString("actual_student", "Pb patron");
+        //1 On retrouve ses cours
+        //On récupère la database
+        db = FirebaseFirestore.getInstance();
+        querySetCoursesOfTheStudent();
 
-        //2 On retrouve sa classe
-        db = FirebaseFirestore.getInstance(); //On récupère la database
-        DocumentReference docRef = db.collection("eleves").document(id_eleve);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-
-                if (task.isSuccessful()) {
-
-                    //On récupère le résultat de la query
-                    DocumentSnapshot document = task.getResult();
-
-                    if (document.exists()) {
-                        classe_eleve = document.getString("classe");
-
-                        //3 On retrouve ses cours
-                        querySetCoursesOfTheStudent();
-                    }
-                    //Message d'erreur (mauvais document)
-                    else {
-                        Log.w("Erreur firebase", "Ce document n'existe pas (MainActivity) : Lors de la recherche de la classe de l'eleve");
-                    }
-                } else {
-                    Log.w("Erreur firebase", "Pb de query lors de la recherche de la classe de l'élève (MainActivity) : " + task.getException());
-                }
-            }
-        });
 
 
     }
@@ -164,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     //On boucle sur chaque matière
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        //4 On mets les cours dans leur jours et heures respectives
+                        //2 On mets les cours dans leur jours et heures respectives
                         setCourses(document.getString("jour"),
                                 document.getString("type"),
                                 document.getId(),
@@ -190,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
                 dc.addCourse(new Course(type, name, teacher, room), Integer.parseInt(emplacement));
             }
         }
-        //5 Mise en place du fragment viewpager2
+        //3 Mise en place du fragment viewpager2
         setFragment();
 
     }
@@ -218,5 +207,23 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         ).attach();
+    }
+
+    private void sendUserToNoteActivity(){
+        /** Permet d'aller la page des notes
+         *
+         */
+        //Création de l'intent
+        Intent intent = new Intent(MainActivity.this, NoteActivity.class);
+        startActivity(intent);
+    }
+
+    private void sendUserToMainActivity(){
+        /** Permet d'aller la page de l'emploi du temps
+         *
+         */
+        //Création de l'intent
+        Intent intent = new Intent(MainActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 }
