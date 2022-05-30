@@ -9,19 +9,33 @@ import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TableLayout;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    private String id_eleve;
+    private String classe_eleve;
     private ArrayList<DayCourses> all_courses = new ArrayList<DayCourses>();
+
+
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +43,50 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //On souhaite créer des journées de cours
+
+        //1 On retrouve l'élève
+        SharedPreferences sp = getSharedPreferences("userPreferences", Context.MODE_PRIVATE);
+        id_eleve = sp.getString("actual_student", "Pb patron");
+
+        //2 On retrouve sa classe
+        db = FirebaseFirestore.getInstance(); //On récupère la database
+        DocumentReference docRef = db.collection("eleves").document(id_eleve);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+
+                    //On récupère le résultat de la query
+                    DocumentSnapshot document = task.getResult();
+
+                    if (document.exists()) {
+                        classe_eleve = document.getString("classe");
+                    }
+                    //Message d'erreur (mauvais document)
+                    else {
+                        Log.w("Erreur firebase", "Ce document n'existe pas (MainActivity) : Lors de la recherche de la classe de l'eleve");
+                    }
+                }
+                else {
+                    Log.w("Erreur firebase", "Pb de query lors de la recherche de la classe de l'élève (MainActivity) : "+task.getException());
+                }
+            }
+        });
+
+        //3 On retrouve ses cours
+        db.document(classe_eleve).collection("matieres").get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("ddk", document.getId() + " => " + document.getData());
+                            }
+                        } else {
+                            Log.w("Erreur firebase", "Pb de query lors de la recherche des matières de l'élève (MainActivity) : "+task.getException());
+                        }
+                    }
+                });
 
 
 
