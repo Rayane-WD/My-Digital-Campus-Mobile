@@ -129,13 +129,14 @@ public class LoginPageActivity extends AppCompatActivity {
 
                     if (document.exists()) {
                         if (document.getString("mdp").equals(user_pass)){
-                            // B I N G O
+                            // B I N G O, on enregistre les info de l'élève
                             SharedPreferences sharedpreferences = getSharedPreferences("userPreferences", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedpreferences.edit();
                             editor.putString("id_student", user_mail);
                             editor.putString("class_student", document.getString("classe"));
-                            editor.putString("name_student", document.getString("nom"));
-                            editor.putString("famname_student", document.getString("prenom"));
+                            editor.putString("name_student", document.getString("prenom"));
+                            editor.putString("famname_student", document.getString("nom"));
+                            editor.apply();
                             sendUserToNextActivity(user_mail);
                         }
                         //Message d'erreur (mauvais mdp)

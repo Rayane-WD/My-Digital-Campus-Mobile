@@ -5,13 +5,18 @@ import static com.google.android.gms.tasks.Tasks.await;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Layout;
 import android.util.Log;
@@ -21,7 +26,6 @@ import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -74,14 +78,24 @@ public class MainActivity extends AppCompatActivity {
         famname_eleve = sp.getString("famname_student", "Pb patron");
 
 
+
         //Implémentation du drawer layout et de sa toggle bar
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigationView);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
 
-        //On ajoute la toggle bar au drawer layout
+        //On ajoute la toggle bar à notre toolbar spéciale
+        setSupportActionBar(findViewById(R.id.toolbar));
+        getSupportActionBar().setTitle("");
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //On modifie le header du drawer menu
+        TextView tv = navigationView.getHeaderView(0).findViewById(R.id.text_intro_name);
+        tv.setText(famname_eleve+"\n"+name_eleve);
+        TextView tv2 = navigationView.getHeaderView(0).findViewById(R.id.text_intro_class);
+        tv2.setText(classe_eleve);
 
         //Listener de notre drawer
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -106,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
 
 
         /**On souhaite créer des journées de cours - Etapes :   **/

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/toolbar_color"
+    android:elevation="4dp"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+
+
+        <ImageView
+            android:layout_width="65dp"
+            android:layout_height="@dimen/dimens_toolbar_height"
+            android:src="@drawable/esme_logo_2"
+            android:layout_gravity="center"/>
+
+
+</androidx.appcompat.widget.Toolbar>
