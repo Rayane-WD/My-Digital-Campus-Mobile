@@ -1,57 +1,36 @@
 package com.example.mydigitalcampusmobile;
-
 import android.util.Log;
-
 public class Subject {
-
-
     private String name = "N/C";
-    private int note_ens = -1;
-    private int note_exam = -1;
-    private int note_pro = -1;
-
-    public Subject(String name, int note_ens, int note_exam){
-
-        this.name = name;
-        this.note_ens = note_ens;
-        this.note_exam = note_exam;
-    }
-
-    public Subject(String name, int note_pro){
-
-        this.name = name;
-        this.note_pro = note_pro;
-    }
-
+    private String note_name_un, note_name_deux;
+    private double note_un = -1;
+    private double note_deux = -1;
     public Subject(String name){
         this.name = name;
     }
-
-    public boolean isProject(){
-        /** Retourne true si la matière a uniquement une note de projet
+    public void addNote (String name, double note){
+        /** permet d'ajouter une note
          *
          */
-
-
-        return this.note_pro>=0;
+        if(note_un==-1){
+            this.note_name_un=name;
+            this.note_un=note;
+        }
+        else{
+            this.note_name_deux=name;
+            this.note_deux=note;
+        }
     }
-
-    public String getString_ens(){
-        if (this.note_ens==-1){return "NE : N/A";}
-        return "NE : "+this.note_ens;
+    public String getString_un(){
+        if (this.note_un==-1){return " ";}
+        return this.note_name_un+" : "+this.note_un;
     }
-    public String getString_exam(){
-        if (this.note_exam==-1){return "Examen : N/A";}
-        return "Examen : "+this.note_exam;
+    public String getString_deux(){
+        if (this.note_deux==-1){return " ";}
+        return this.note_name_deux+" : "+this.note_deux;
     }
-    public String getString_pro(){
-        return "Projet : "+this.note_pro;
-    }
-
-
     //Getters
     public String getName(){return this.name;}
-    public int getNote_ens(){return this.note_ens;}
-    public int getNote_exam(){return this.note_exam;}
-    public int getNote_pro(){return this.note_pro;}
+    public double getNote_un(){return this.note_un;}
+    public double getNote_deux(){return this.note_deux;}
 }
