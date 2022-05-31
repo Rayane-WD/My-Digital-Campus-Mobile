@@ -39,6 +39,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {

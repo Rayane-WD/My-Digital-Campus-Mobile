@@ -37,28 +37,6 @@ public class NoteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note);
 
-//        //mail pour l'authentication à la db
-//        String email="mateo.theveney@esme.fr";
-//        // password associé
-//        String password="123abc";
-//
-        mAuth = FirebaseAuth.getInstance();
-//        mAuth.signInWithEmailAndPassword(email, password)
-//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if (task.isSuccessful()) {
-//                            // Sign in success, update UI with the signed-in user's information
-//                            Log.d(TAG, "signInWithEmail:success");
-//                            FirebaseUser user = mAuth.getCurrentUser();
-//
-//                        } else {
-//                            // If sign in fails, display a message to the user.
-//                            Log.w(TAG, "signInWithEmail:failure", task.getException());
-//                        }
-//                    }
-//                });
-
 
         //Connexion à la db
         db = FirebaseFirestore.getInstance();
@@ -86,7 +64,6 @@ public class NoteActivity extends AppCompatActivity {
                                 recyclerView.setLayoutManager(new LinearLayoutManager(NoteActivity.this));
                                 NoteAdapter adapter = new NoteAdapter(NoteActivity.this, listSubjects);
                                 recyclerView.setAdapter(adapter);
-                                Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
@@ -97,12 +74,12 @@ public class NoteActivity extends AppCompatActivity {
 
 
 
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            currentUser.reload();
-        }
-    }
+//    public void onStart() {
+//        super.onStart();
+//        // Check if user is signed in (non-null) and update UI accordingly.
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        if(currentUser != null){
+//            currentUser.reload();
+//        }
+//    }
 }
