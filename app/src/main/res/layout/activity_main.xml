@@ -12,6 +12,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/wallpaper_app"
         tools:context=".MainActivity">
 
         <include
@@ -21,7 +22,13 @@
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/schedule_viewpager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dimens_toolbar_height" />
 
 
         <com.google.android.material.tabs.TabLayout

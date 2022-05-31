@@ -32,11 +32,12 @@ public class ScheduleFragment extends Fragment {
 
 
 
-        //On change le texte de notre page a chaque création d'une nouvelle page//Bouclons  sur les emplacements de cours
+        //On change le texte de notre page a chaque création d'une nouvelle page
         int [] courses_id_in_xml_list = {R.id.course1, R.id.course2, R.id.course3, R.id.course4, R.id.course5}; //Recupère les id
 
         int n=0; //variable de suivit de la liste des cours id
 
+        //Bouclons  sur les emplacements de cours
         for (int c_id : courses_id_in_xml_list){
             n++;
             if (n==6){break;}
