@@ -44,7 +44,7 @@
 
     <!--    card item style    -->
     <style name="note_card_item" parent="TextAppearance.AppCompat">
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:textStyle">italic</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:ems">2</item>

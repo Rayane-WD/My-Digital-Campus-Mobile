@@ -21,10 +21,10 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="15dp"
-            android:maxEms="7"
+            android:maxEms="9"
             android:text="Matière1"
             android:textColor="@color/black"
-            android:textSize="22sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <LinearLayout
