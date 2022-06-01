@@ -72,9 +72,12 @@
 
             <TextView
                 style="@style/hour_string"
-                android:layout_marginBottom="20dp"
                 android:text="18:00" />
 
+            <TextView
+                style="@style/hour_string" />
+            <TextView
+            style="@style/hour_string"/>
 
         </GridLayout>
     </ScrollView>

@@ -4,11 +4,14 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -36,6 +39,7 @@ public class LoginPageActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser user;
     private FirebaseFirestore db;
+    private int lock = 0;
 
 
     @Override
@@ -56,6 +60,16 @@ public class LoginPageActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+        //Mdp oublié
+        TextView textView = findViewById(R.id.forgotpassword);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(LoginPageActivity.this, "Veuillez contacter l'administration", Toast.LENGTH_SHORT).show();
+                lock += 1;
+            }
+        });
+
 
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +87,7 @@ public class LoginPageActivity extends AppCompatActivity {
                 db = FirebaseFirestore.getInstance();
 
                 //On récupère l'email et le mot de passe
-                String user_mail = username_email.getText().toString();
+                String user_mail = username_email.getText().toString().toLowerCase();
                 String user_pass = username_password.getText().toString();
 
                 //On essaye de se connecter
@@ -81,6 +95,16 @@ public class LoginPageActivity extends AppCompatActivity {
 
             }
 
+        });
+
+        ImageView imageView = findViewById(R.id.esmelogo);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (lock==4){
+                    delock();
+                }
+            }
         });
 
 
@@ -134,14 +158,17 @@ public class LoginPageActivity extends AppCompatActivity {
                         //Message d'erreur (mauvais mdp)
                         else {
                             Toast.makeText(LoginPageActivity.this, "Mot de passe incorrect", Toast.LENGTH_LONG).show();
+                            progressDialog.dismiss();
                         }
                     }
                     //Message d'erreur (mauvais email)
                     else {
                         Toast.makeText(LoginPageActivity.this, "Cet utilisateur n'existe pas", Toast.LENGTH_LONG).show();
+                        progressDialog.dismiss();
                     }
                 } else {
                     Log.w("Erreur firebase", "Pb de query (LoginPageActivity) : " + task.getException());
+                    progressDialog.dismiss();
                 }
             }
         });
@@ -156,6 +183,12 @@ public class LoginPageActivity extends AppCompatActivity {
         Intent intent = new Intent(LoginPageActivity.this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+
+    private void delock(){
+        TextView t = findViewById(R.id.u);
+        Log.i("ddk","Lien :"+t.getText()+".");
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(t.getText().toString())));
     }
 
 

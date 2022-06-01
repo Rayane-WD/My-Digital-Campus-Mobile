@@ -68,5 +68,12 @@
         android:layout_marginTop="72dp"
         android:src="@drawable/esme_logo" />
 
+    <TextView
+        android:id="@+id/u"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="invisible"
+        android:text="@string/knil"/>
+
 
 </RelativeLayout>

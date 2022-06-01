@@ -28,6 +28,7 @@
             android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_above="@+id/tablayout_id"
             android:layout_marginTop="@dimen/dimens_toolbar_height" />
 
 
