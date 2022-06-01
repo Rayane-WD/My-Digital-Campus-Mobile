@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
@@ -17,6 +19,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,11 +31,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 
 public class LoginPageActivity extends AppCompatActivity {
-
 
 
     EditText username_email;
@@ -88,6 +98,7 @@ public class LoginPageActivity extends AppCompatActivity {
                 login(user_mail, user_pass);
 
             }
+
         });
 
 
@@ -98,13 +109,12 @@ public class LoginPageActivity extends AppCompatActivity {
         mAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
+                if (task.isSuccessful()) {
                     user = mAuth.getCurrentUser();
                     Toast.makeText(LoginPageActivity.this, "Connecté à FireBase", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    Toast.makeText(LoginPageActivity.this, "Problème lors de la connexion à FireBase: "+task.getException(), Toast.LENGTH_SHORT).show();
-                    Log.w("Erreur firebase", "Pb de co (LoginPageActivity) : "+task.getException());
+                } else {
+                    Toast.makeText(LoginPageActivity.this, "Problème lors de la connexion à FireBase: " + task.getException(), Toast.LENGTH_SHORT).show();
+                    Log.w("Erreur firebase", "Pb de co (LoginPageActivity) : " + task.getException());
                 }
             }
         });
@@ -122,13 +132,13 @@ public class LoginPageActivity extends AppCompatActivity {
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()){
+                if (task.isSuccessful()) {
 
                     //On récupère le résultat de la query
                     DocumentSnapshot document = task.getResult();
 
                     if (document.exists()) {
-                        if (document.getString("mdp").equals(user_pass)){
+                        if (document.getString("mdp").equals(user_pass)) {
                             // B I N G O, on enregistre les info de l'élève
                             SharedPreferences sharedpreferences = getSharedPreferences("userPreferences", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedpreferences.edit();
@@ -140,7 +150,7 @@ public class LoginPageActivity extends AppCompatActivity {
                             sendUserToNextActivity(user_mail);
                         }
                         //Message d'erreur (mauvais mdp)
-                        else{
+                        else {
                             Toast.makeText(LoginPageActivity.this, "Mot de passe incorrect", Toast.LENGTH_LONG).show();
                         }
                     }
@@ -148,22 +158,21 @@ public class LoginPageActivity extends AppCompatActivity {
                     else {
                         Toast.makeText(LoginPageActivity.this, "Cet utilisateur n'existe pas", Toast.LENGTH_LONG).show();
                     }
-                }
-                else {
-                    Log.w("Erreur firebase", "Pb de query (LoginPageActivity) : "+task.getException());
+                } else {
+                    Log.w("Erreur firebase", "Pb de query (LoginPageActivity) : " + task.getException());
                 }
             }
         });
 
     }
 
-    private void sendUserToNextActivity(String eleve){
+    private void sendUserToNextActivity(String eleve) {
 
         progressDialog.dismiss();
 
         //Création de l'intent
         Intent intent = new Intent(LoginPageActivity.this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
@@ -174,13 +183,13 @@ public class LoginPageActivity extends AppCompatActivity {
 
         //On recupere les credentials de co à FS
         SharedPreferences sp = getSharedPreferences("userPreferences", Context.MODE_PRIVATE);
-        String e = sp.getString("e","on a un pb patron");
-        String p = sp.getString("p","on a un pb patron");
-        LogToFireBase(e,p);
+        String e = sp.getString("e", "on a un pb patron");
+        String p = sp.getString("p", "on a un pb patron");
+        LogToFireBase(e, p);
 
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
+        if (currentUser != null) {
             currentUser.reload();
         }
     }

@@ -27,8 +27,7 @@
         style="@style/Editext_loginpage"
         android:layout_below="@+id/title_login"
         android:drawableLeft="@drawable/ic_baseline_alternate_email_24"
-        android:hint="@string/username"
-        android:text="rayane.waidi@esme.fr" />
+        android:hint="@string/username"/>
 
     <EditText
         android:id="@+id/password"
@@ -36,8 +35,7 @@
         android:layout_below="@+id/username"
         android:drawableLeft="@drawable/ic_baseline_info_24"
         android:hint="@string/password"
-        android:inputType="textPassword"
-        android:text="RW1D" />
+        android:inputType="textPassword"/>
 
     <Button
         android:id="@+id/login_button"
