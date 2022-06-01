@@ -60,6 +60,8 @@ public class LoginPageActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+        /** Implémenation de la base de donnée à coller à cet endroit précis **/
+
         //Mdp oublié
         TextView textView = findViewById(R.id.forgotpassword);
         textView.setOnClickListener(new View.OnClickListener() {
