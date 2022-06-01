@@ -1,8 +1,5 @@
 package com.example.mydigitalcampusmobile;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Course {
 
 

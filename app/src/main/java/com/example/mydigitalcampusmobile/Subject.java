@@ -1,5 +1,5 @@
 package com.example.mydigitalcampusmobile;
-import android.util.Log;
+
 public class Subject {
     private String name = "N/C";
     private String note_name_un, note_name_deux;
