@@ -20,5 +20,6 @@ This project was created as part of my studies in the 3rd year of my engineer sc
 
 This project was created in collaboration with :
 ***Mateo THEVENEY*** - [His Linkdin](https://www.linkedin.com/in/mateo-theveney/).
+
 ***Hugo LACOUR*** - [His Linkdin](https://www.linkedin.com/in/hugo-lacour-790b251a3/) and [Website](https://regal-bombolone-700163.netlify.app/).
  
