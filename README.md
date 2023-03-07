@@ -5,7 +5,7 @@ A prototype app that could be used by students at our school.
 1. Sign in using your personal credentials. All our promotion names, classes, mails and passwords were stored in a *Firebase* database.
 
 ![sign_in](/demo/sign_in.gif)
- <img src="demo/sign_in.gif" alt="gif" width="425" height="250">
+ <img src="demo/sign_in.gif" alt="gif" width="300" height="615">
  
  2. The app starts by showing you the general feed news. 
  
@@ -13,7 +13,7 @@ A prototype app that could be used by students at our school.
  
  3. You can navigate the app using a side panel. Student timetables and grades were stored in an online database.
  
- <img src="demo/navigation.jpg" alt="navigation.gif" width="425" height="250">
+ <img src="demo/navigation.gif" alt="navigation.gif" width="425" height="250">
  
 
 ## Context
