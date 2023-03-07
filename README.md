@@ -1,18 +1,18 @@
 # My-Digital-Campus-Mobile
-A protoype application wich could be use by my school's students
+A prototype app that could be used by students at our school.
 
 ## Demo
-1. Sign in using your personal credentials. All my promotion names, classes, mails and passwords have been stored in a *Firebase* database.
+1. Sign in using your personal credentials. All our promotion names, classes, mails and passwords were stored in a *Firebase* database.
 
- <img src="img/img1_start_game.gif" alt="gif"> width="425" height="250">
+ <img src="demo/sign_in.gif" alt="gif" width="425" height="250">
  
- 2. The app start with showing you the general feed news. 
+ 2. The app starts by showing you the general feed news. 
  
- <img src="img/img1_feed_news.gif" alt="img1_feed_news.gif" width="425" height="250">
+ <img src="demo/feed_news.gif" alt="feed_news.gif" width="425" height="250">
  
- 3. You can navigate through the app using a side panel. The student's schedule and notes have been stored in an online database.
+ 3. You can navigate the app using a side panel. Student timetables and grades were stored in an online database.
  
- <img src="img/img1_navigation.jpg" alt="img1_navigation.gif" width="425" height="250">
+ <img src="demo/navigation.jpg" alt="navigation.gif" width="425" height="250">
  
 
 ## Context
