@@ -1,17 +1,14 @@
 package com.example.mydigitalcampusmobile;
 
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 
 
 public class ScheduleFragment extends Fragment {
@@ -32,13 +29,15 @@ public class ScheduleFragment extends Fragment {
 
 
 
-        //On change le texte de notre page a chaque création d'une nouvelle page//Bouclons  sur les emplacements de cours
+        //On change le texte de notre page a chaque création d'une nouvelle page
         int [] courses_id_in_xml_list = {R.id.course1, R.id.course2, R.id.course3, R.id.course4, R.id.course5}; //Recupère les id
 
         int n=0; //variable de suivit de la liste des cours id
 
+        //Bouclons  sur les emplacements de cours
         for (int c_id : courses_id_in_xml_list){
             n++;
+            if (n==6){break;}
 
             TextView tv = root.findViewById(c_id);
             tv.setText(this.courses.getString(n)); //Maj du fragment en fonction du cours
