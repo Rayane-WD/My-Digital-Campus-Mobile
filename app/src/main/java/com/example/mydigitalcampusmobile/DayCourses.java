@@ -23,7 +23,7 @@ public class DayCourses {
         /** Permet de ne pas laisser de case vide dans la liste des cours
 
          */
-        for (int i=0; i<4; i++) {
+        for (int i=0; i<=5; i++) {
             list_of_courses.add(null);
         }
 
@@ -57,8 +57,6 @@ public class DayCourses {
     public ArrayList<Course> getCourses(){
         return list_of_courses;
     }
-    public Course getCourse(int n){
-        return list_of_courses.get(n);
-    }
+    public Course getCourse(int n){return list_of_courses.get(n);}
     public String getDay() {return day;}
 }
