@@ -14,7 +14,7 @@ A prototype app that could be used by students at our school.
  
  <img src="demo/navigation.gif" alt="navigation.gif" width="171" height="350">
  
- 4. The data has been organized using Python and the database has been populated using Java. You can see this here [/populateEsmeDB](/populateEsmeDB)
+ 4. The data has been organized using Python and the database has been populated using Java. You can see this here [/populateEsmeDB](/populateEsmeDB).
 
 ## Context
 This project was created as part of my studies in the 3rd year of my engineer school ESME Sudria in the *Innovation* Major.
