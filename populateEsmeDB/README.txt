@@ -1,3 +1,1 @@
-Ces fichiers n'ont eu pour unique but de remplir une base de donnée firestore selon nos propres exigences.
-Le script java (dans /src) qui traite directement avec la base de donnée n'est donc pas fonctionel dans l'état immédiat.
-Le fichier python à servit à odronner des données brute et créer des notes aléatoires.
+These files were only intended to populate a Firestore database according to our own requirements. The Java script (in /src) directly interacts with the database. The Python script was used to organize raw data and create random notes.
